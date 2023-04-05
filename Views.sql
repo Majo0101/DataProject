@@ -28,7 +28,7 @@ SELECT Employees.fname                                     AS FirstName,
        Fuels.price                                         AS Price,
        Cars.consuption                                     AS Consuption,
        TripLog.mileage                                     AS Mileage,
-       round((TripLog.mileage * Cars.consuption / 100), 2) AS TotalCosts
+       ROUND((TripLog.mileage * Cars.consuption / 100), 2) AS TotalCosts
 FROM TripLog
          INNER JOIN Cars_Fuels
                     ON TripLog.cars_id = Cars_Fuels.cars_id
