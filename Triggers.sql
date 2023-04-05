@@ -1,3 +1,4 @@
+DROP TRIGGER IF EXISTS TripLog_trigger;
 CREATE TRIGGER TripLog_trigger
     AFTER INSERT
     ON TripLog

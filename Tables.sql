@@ -16,7 +16,7 @@ CREATE TABLE Fuels
 (
     id    INTEGER AUTO_INCREMENT,
     fuel  VARCHAR(255) NOT NULL,
-    price INTEGER      NOT NULL,
+    price FLOAT        NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY (fuel)
 );
