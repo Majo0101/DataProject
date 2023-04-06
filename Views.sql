@@ -20,7 +20,7 @@ SELECT Employees.fname                                      AS FirstName,
        Employees.lname                                      AS LastName,
        Jobs.job                                             AS Job,
        Months.inMonth                                       AS inMonth,
-       TripLog.inYear                                       AS inYear,
+       Years.inYear                                         AS inYear,
        Cars.car                                             AS Car,
        Fuels.fuel                                           AS Fuel,
        Fuels.price                                          AS Price,
@@ -42,4 +42,6 @@ FROM TripLog
                     ON Employees_Jobs.jobs_id = Jobs.id
          INNER JOIN Months
                     ON TripLog.months_id = Months.id
-ORDER BY TripLog.id
+         INNER JOIN Years
+                    ON TripLog.Years_id = Years.id
+ORDER BY TripLog.id;

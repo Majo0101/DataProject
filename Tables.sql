@@ -11,6 +11,33 @@ CREATE TABLE Jobs
     UNIQUE KEY (job)
 );
 
+DROP TABLE IF EXISTS Expenses;
+CREATE TABLE Expenses
+(
+    id      INTEGER AUTO_INCREMENT,
+    expense VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY (expense)
+);
+
+DROP TABLE IF EXISTS Countries;
+CREATE TABLE Countries
+(
+    id      INTEGER AUTO_INCREMENT,
+    country VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY (country)
+);
+
+DROP TABLE IF EXISTS Years;
+CREATE TABLE Years
+(
+    id     INTEGER AUTO_INCREMENT,
+    inYear INTEGER NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY (inYear)
+);
+
 DROP TABLE IF EXISTS Fuels;
 CREATE TABLE Fuels
 (
@@ -24,8 +51,8 @@ CREATE TABLE Fuels
 DROP TABLE IF EXISTS Cars;
 CREATE TABLE Cars
 (
-    id         INTEGER AUTO_INCREMENT,
-    car        VARCHAR(255) NOT NULL,
+    id          INTEGER AUTO_INCREMENT,
+    car         VARCHAR(255) NOT NULL,
     consumption FLOAT        NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY (car)
@@ -53,9 +80,10 @@ CREATE TABLE Months
 DROP TABLE IF EXISTS TotalCosts;
 CREATE TABLE TotalCosts
 (
-    id   INTEGER AUTO_INCREMENT,
-    cost VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
+    cost   VARCHAR(255) NOT NULL,
+    actual FLOAT        NOT NULL,
+    UNIQUE KEY (cost)
+
 );
 
 DROP TABLE IF EXISTS Employees;
@@ -106,12 +134,31 @@ CREATE TABLE TripLog
     employees_id INTEGER NOT NULL,
     cars_id      INTEGER NOT NULL,
     months_id    INTEGER NOT NULL,
-    inYear       INTEGER NOT NULL,
+    Years_id     INTEGER NOT NULL,
     mileage      INTEGER NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (employees_id) REFERENCES Employees (id),
     FOREIGN KEY (cars_id) REFERENCES Cars (id),
-    FOREIGN KEY (months_id) REFERENCES Months (id)
+    FOREIGN KEY (months_id) REFERENCES Months (id),
+    FOREIGN KEY (years_id) REFERENCES Years (id)
+);
+
+DROP TABLE IF EXISTS ExpensesLog;
+CREATE TABLE ExpensesLog
+(
+    id           INTEGER AUTO_INCREMENT,
+    employees_id INTEGER NOT NULL,
+    countries_id INTEGER NOT NULL,
+    expenses_id  INTEGER NOT NULL,
+    months_id    INTEGER NOT NULL,
+    Years_id     INTEGER NOT NULL,
+    price        FLOAT   NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (employees_id) REFERENCES Employees (id),
+    FOREIGN KEY (countries_id) REFERENCES Countries (id),
+    FOREIGN KEY (expenses_id) REFERENCES Expenses (id),
+    FOREIGN KEY (months_id) REFERENCES Months (id),
+    FOREIGN KEY (years_id) REFERENCES Years (id)
 );
 
 SET
