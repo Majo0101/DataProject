@@ -243,7 +243,7 @@ class FakerData:
 
 
 if __name__ == "__main__":
-    sql = MySQL("mysql57.r2.websupport.sk", "3311", "MackoPes", "bububu", "Bububu2023")
+    sql = MySQL(hostname, port, dbname, uname, pwd)
 
     if sql.connect():
         data = FakerData(sql.engine, sql.connection)
