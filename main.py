@@ -180,30 +180,70 @@ class FakerData:
             select_cars = self.__connection.execute(text(select_cars)).fetchall()[0][0]
         except Exception as e:
             print(f'Error: {e}')
+        if int(select_employees) != 0 and int(select_cars):
+            employees_id = [random.randint(1, int(select_employees)) for y in range(1, int(count) + 1)]
+            cars_id = [random.randint(1, int(select_cars)) for y in range(1, int(count) + 1)]
+            months_id = [random.randint(1, int(months)) for y in range(1, int(count) + 1)]
+            years_id = [year for y in range(1, int(count) + 1)]
+            mileage = [random.randint(30, 500) for y in range(1, int(count) + 1)]
 
-        employees_id = [random.randint(1, int(select_employees)) for y in range(1, int(count) + 1)]
-        cars_id = [random.randint(1, int(select_cars)) for y in range(1, int(count) + 1)]
-        months_id = [random.randint(1, int(months)) for y in range(1, int(count) + 1)]
-        years_id = [year for y in range(1, int(count) + 1)]
-        mileage = [random.randint(30, 500) for y in range(1, int(count) + 1)]
+            dataframe = pd.DataFrame({
+                'employees_id': employees_id,
+                'cars_id': cars_id,
+                'months_id': months_id,
+                'years_id': years_id,
+                'mileage': mileage
+            })
 
-        dataframe = pd.DataFrame({
-            'employees_id': employees_id,
-            'cars_id': cars_id,
-            'months_id': months_id,
-            'years_id': years_id,
-            'mileage': mileage
-        })
+            try:
+                dataframe.to_sql(con=self.__engine, name='TripLog', if_exists='append', index=False)
+                print('TripLog OK')
+            except Exception as e:
+                print(f'Error: {e}')
+        else:
+            print('Employees OR Cars IS NULL')
+
+    def expenses_log(self, count, months, year):
+        # TODO APPEND TO THE EXISTING ExpensesLog
+        select_employees = "SELECT COUNT(*) FROM Employees"
+        select_expenses = "SELECT COUNT(*) FROM Expenses"
+        select_countries = "SELECT COUNT(*) FROM Countries"
 
         try:
-            dataframe.to_sql(con=self.__engine, name='TripLog', if_exists='append', index=False)
-            print('Employees_MobilePlans OK')
+            select_employees = self.__connection.execute(text(select_employees)).fetchall()[0][0]
+            select_expenses = self.__connection.execute(text(select_expenses)).fetchall()[0][0]
+            select_countries = self.__connection.execute(text(select_countries)).fetchall()[0][0]
         except Exception as e:
             print(f'Error: {e}')
 
+        if int(select_employees) != 0 and int(select_expenses) != 0 and int(select_countries):
+            employees_id = [random.randint(1, int(select_employees)) for y in range(1, int(count) + 1)]
+            expenses_id = [random.randint(1, int(select_expenses)) for y in range(1, int(count) + 1)]
+            countries_id = [random.randint(1, int(select_countries)) for y in range(1, int(count) + 1)]
+            months_id = [random.randint(1, int(months)) for y in range(1, int(count) + 1)]
+            years_id = [year for y in range(1, int(count) + 1)]
+            price = [random.randint(50, 350) for y in range(1, int(count) + 1)]
+
+            dataframe = pd.DataFrame({
+                'employees_id': employees_id,
+                'countries_id': countries_id,
+                'expenses_id': expenses_id,
+                'months_id': months_id,
+                'years_id': years_id,
+                'price': price
+            })
+
+            try:
+                dataframe.to_sql(con=self.__engine, name='ExpensesLog', if_exists='append', index=False)
+                print('ExpensesLog OK')
+            except Exception as e:
+                print(f'Error: {e}')
+        else:
+            print('Employees OR Expenses OR Countries IS NULL')
+
 
 if __name__ == "__main__":
-    sql = MySQL(hostname, port, dbname, uname, pwd)
+    sql = MySQL("mysql57.r2.websupport.sk", "3311", "MackoPes", "bububu", "Bububu2023")
 
     if sql.connect():
         data = FakerData(sql.engine, sql.connection)
@@ -213,5 +253,6 @@ if __name__ == "__main__":
         data.employees_jobs()
         data.employees_mobile_plans()
         data.trip_log(800, 12, 1)
+        data.expenses_log(500, 12, 1)
 
         sql.disconnect()
