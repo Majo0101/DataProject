@@ -4,6 +4,7 @@ CREATE DATABASE IF NOT EXISTS AdeptusMechanicus_5;
 -- To show databases
 SHOW DATABASES;
 
+-- Use database
 USE AdeptusMechanicus_5;
 
 -- Create users
