@@ -1,21 +1,21 @@
-CREATE OR REPLACE VIEW Employees_MobilePlans_View AS
+CREATE OR REPLACE VIEW Employees_MobilePlans_Valacsay AS
 SELECT Employees.fname   AS FirstName,
        Employees.lname   AS LastName,
        MobilePlans.plan  AS MobilePlan,
        MobilePlans.price AS Price,
        Jobs.job          AS Job
-FROM Employees_MobilePlans
-         INNER JOIN Employees
-                    ON Employees_MobilePlans.employees_id = Employees.id
+FROM Employees
+         INNER JOIN Employees_MobilePlans
+                    ON Employees.id = Employees_MobilePlans.employees_id
          INNER JOIN MobilePlans
                     ON Employees_MobilePlans.mobilePlans_id = MobilePlans.id
          INNER JOIN Employees_Jobs
-                    ON Employees_MobilePlans.employees_id = Employees_Jobs.employees_id
-         INNER JOIN Jobs
-                    ON Employees_Jobs.employees_id = Jobs.id;
+                    ON Employees_Jobs.employees_id = Employees.id
+         LEFT JOIN Jobs
+                    ON Employees_Jobs.jobs_id = Jobs.id;
 
 
-CREATE OR REPLACE VIEW TripLog_View AS
+CREATE OR REPLACE VIEW TripLog_Valacsay AS
 SELECT Employees.fname                                      AS FirstName,
        Employees.lname                                      AS LastName,
        Jobs.job                                             AS Job,
