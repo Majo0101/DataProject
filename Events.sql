@@ -8,3 +8,4 @@ BEGIN
     INSERT INTO Years (AdeptusMechanicus_5.Years.year)
     VALUES (YEAR(curdate()));
 END;
+

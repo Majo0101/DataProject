@@ -139,3 +139,4 @@ VALUES (1, 1),
 # INSERT INTO TripLog (employees_id, cars_id, months_id, inYear, mileage)
 # VALUES (ROUND(RAND() * 51) + 1, ROUND(RAND() * 19) + 1, ROUND(RAND() * 11) + 1, 2022,
 #         FLOOR(RAND() * (500 - 30 + 1)) + 30);
+

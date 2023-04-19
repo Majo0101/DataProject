@@ -6,3 +6,4 @@ CREATE TRIGGER TripLog_trigger
     UPDATE TotalCosts
     SET actual = (SELECT(SUM(mileage)) FROM TripLog)
     WHERE cost = 'Fuel';
+

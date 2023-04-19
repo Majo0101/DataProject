@@ -650,3 +650,4 @@ FROM TripLog
               ON Fuels.id = Cars_Fuels.fuels_id
 WHERE Jobs.job = 'CEO/Managing Director'
 ORDER BY TripLog.id;
+
