@@ -3,14 +3,14 @@ BEGIN
     SELECT * FROM TripLog WHERE months_id = inputMonth;
 END;
 
-CREATE PROCEDURE Expenses_Month_Year_Bodnar(IN inputMonth INT, IN inputYear INT)
+CREATE PROCEDURE EXPENSES_MONTH_YEAR(IN inputMonth INT, IN inputYear INT)
 BEGIN
     SELECT ExpensesLog.id                  AS ID,
-           Employees.fname                 AS FirstName,
-           Employees.lname                 AS LastName,
+           Employees.first_name            AS FirstName,
+           Employees.last_name             AS LastName,
            Jobs.job                        AS Job,
-           Months.inMonth                  AS inMonth,
-           Years.inYear                    AS inYear,
+           Months.Month                    AS inMonth,
+           Years.year                      AS inYear,
            Expenses.expense                AS Expense,
            CONCAT(ExpensesLog.price, ' €') AS Price
     FROM ExpensesLog
@@ -29,7 +29,7 @@ BEGIN
              INNER JOIN Expenses
                         ON ExpensesLog.expenses_id = Expenses.id
     WHERE ExpensesLog.months_id = inputMonth
-      AND Years.inYear = inputYear
+      AND Years.year = inputYear
     ORDER BY ExpensesLog.id;
 END;
 

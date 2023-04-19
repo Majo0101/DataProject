@@ -33,9 +33,9 @@ DROP TABLE IF EXISTS Years;
 CREATE TABLE Years
 (
     id     INTEGER AUTO_INCREMENT,
-    inYear INTEGER NOT NULL,
+    year INTEGER NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE KEY (inYear)
+    UNIQUE KEY (year)
 );
 
 DROP TABLE IF EXISTS Fuels;
@@ -72,9 +72,9 @@ DROP TABLE IF EXISTS Months;
 CREATE TABLE Months
 (
     id      INTEGER AUTO_INCREMENT,
-    inMonth VARCHAR(255) NOT NULL,
+    Month VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE KEY (inMonth)
+    UNIQUE KEY (Month)
 );
 
 DROP TABLE IF EXISTS TotalCosts;
@@ -90,8 +90,8 @@ DROP TABLE IF EXISTS Employees;
 CREATE TABLE Employees
 (
     id    INTEGER AUTO_INCREMENT,
-    fname VARCHAR(255) NOT NULL,
-    lname VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
     age   INTEGER      NOT NULL,
     email VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
