@@ -1,7 +1,7 @@
-INSERT INTO TotalCosts (cost, actual)
-VALUES ('Payroll', 0),
-       ('Fuel', 0),
-       ('Bussines', 0);
+INSERT INTO TotalCosts (OperatingCostType, OperatingCostSum)
+VALUES ('Fuels', 0),
+       ('Expenses', 0),
+       ('MobilePlans', 0);
 
 INSERT INTO Cars (car, consumption)
 VALUES ('Audi', 7.5),
@@ -38,7 +38,7 @@ VALUES ('30', 15),
        ('120', 30),
        ('Unlimited', 35);
 
-INSERT INTO Months (inMonth)
+INSERT INTO Months (Month)
 VALUES ('January'),
        ('February'),
        ('March'),
@@ -52,7 +52,7 @@ VALUES ('January'),
        ('November'),
        ('December');
 
-INSERT INTO Years (inYear)
+INSERT INTO Years (year)
 VALUES (2022),
        (2023);
 
@@ -88,7 +88,7 @@ VALUES
     (9, 'Supplies for trade shows or conferences (e.g. brochures, promotional items)'),
     (10, 'Translation services for international business trips');
 
-INSERT INTO Employees (fname, lname, age, email)
+INSERT INTO Employees (first_name, last_name, age, email)
 VALUES ('Branislav', 'Valacsay', 40, 'branislav.v@outlook.com'),
        ('Marian', 'Bodnar', 18, 'm_bodnar@gmail.com'),
        ('Milos', 'Vydareny', 41, 'milos.vydareny@paneurouni.com'),

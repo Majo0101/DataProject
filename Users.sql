@@ -31,4 +31,3 @@ GRANT SELECT ON AdeptusMechanicus_5.* TO 'User6'@'%';
 
 -- To view the privileges for example
 SHOW GRANTS FOR 'User6'@'%';
-

@@ -80,10 +80,11 @@ CREATE TABLE Months
 DROP TABLE IF EXISTS TotalCosts;
 CREATE TABLE TotalCosts
 (
-    cost   VARCHAR(255) NOT NULL,
-    actual FLOAT        NOT NULL,
-    UNIQUE KEY (cost)
-
+    id                INT(11)     NOT NULL AUTO_INCREMENT,
+    OperatingCostType VARCHAR(15) NOT NULL,
+    OperatingCostSum  FLOAT       NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY OperatingCostType (OperatingCostType)
 );
 
 DROP TABLE IF EXISTS Employees;
