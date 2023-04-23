@@ -78,5 +78,3 @@ BEGIN
     SELECT IF(((SELECT GetCurrentMonth() = 12) AND (SELECT GetMaxYear() = (SELECT GetCurrentYear()))),
               (SELECT IncrementYear()), 'No action needed');
 END;
-
-

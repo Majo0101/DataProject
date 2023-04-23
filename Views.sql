@@ -1,3 +1,21 @@
+CREATE OR REPLACE VIEW EXPENSES_LOG_CURRENT_YEAR AS
+SELECT EXPENSES_LOG.ID          AS ID,
+       EXPENSES_LOG.FirstName   AS FirstName,
+       EXPENSES_LOG.LastName    AS LastName,
+       EXPENSES_LOG.Job         AS Job,
+       EXPENSES_LOG.Month       AS Month,
+       EXPENSES_LOG.Year        AS Year,
+       EXPENSES_LOG.Expense     AS Expense,
+       EXPENSES_LOG.`Price (€)` AS `Price (€)`
+FROM EXPENSES_LOG
+WHERE (EXPENSES_LOG.Year = (SELECT year(CURDATE())));
+
+
+CREATE OR REPLACE VIEW TOTAL_SPENT_ACTUAL_YEAR AS
+SELECT CONCAT(ROUND(SUM(TotalCosts.OperatingCostSum), 2), ' Euro') AS Total_Spent_This_year
+FROM TotalCosts;
+
+
 CREATE OR REPLACE VIEW EMPLOYEES_MOBILE_PLANS AS
 SELECT Employees.first_name AS FirstName,
        Employees.last_name  AS LastName,
@@ -20,10 +38,10 @@ SELECT ExpensesLog.id                  AS ID,
        Employees.first_name            AS FirstName,
        Employees.last_name             AS LastName,
        Jobs.job                        AS Job,
-       Months.Month                    AS inMonth,
-       Years.year                      AS inYear,
+       Months.Month                    AS Month,
+       Years.year                      AS Year,
        Expenses.expense                AS Expense,
-       CONCAT(ExpensesLog.price, ' €') AS Price
+       CONCAT(ExpensesLog.price, ' €') AS `Price (€)`
 FROM ExpensesLog
          INNER JOIN Employees
                     ON Employees.id = employees_id
@@ -529,25 +547,25 @@ ORDER BY TripLog.id;
 
 
 CREATE OR REPLACE VIEW MILEAGE_CNG AS
-SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, sum(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
+SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, SUM(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
 FROM TRIP_LOG_CURRENT_YEAR
 WHERE TRIP_LOG_CURRENT_YEAR.fuel = 'CNG';
 
 
 CREATE OR REPLACE VIEW MILEAGE_Diesel AS
-SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, sum(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
+SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, SUM(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
 FROM TRIP_LOG_CURRENT_YEAR
 WHERE TRIP_LOG_CURRENT_YEAR.fuel = 'Diesel';
 
 
 CREATE OR REPLACE VIEW MILEAGE_LPG AS
-SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, sum(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
+SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, SUM(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
 FROM TRIP_LOG_CURRENT_YEAR
 WHERE TRIP_LOG_CURRENT_YEAR.fuel = 'LPG';
 
 
 CREATE OR REPLACE VIEW MILEAGE_Petrol AS
-SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, sum(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
+SELECT TRIP_LOG_CURRENT_YEAR.fuel AS fuel, SUM(TRIP_LOG_CURRENT_YEAR.mileage) AS summileage
 FROM TRIP_LOG_CURRENT_YEAR
 WHERE TRIP_LOG_CURRENT_YEAR.fuel = 'Petrol';
 
@@ -562,7 +580,7 @@ FROM Employees_MobilePlans
 
 
 CREATE OR REPLACE VIEW MOBILE_PLANS_SUM_2022 AS
-SELECT sum(MobilePlans.price * 12) AS `Mobile Cost 2022`
+SELECT SUM(MobilePlans.price * 12) AS `Mobile Cost 2022`
 FROM Employees_MobilePlans
          JOIN Employees
               ON Employees_MobilePlans.employees_id = Employees.id
@@ -601,7 +619,7 @@ SELECT Employees.first_name AS first_name,
        Cars.car             AS car,
        Fuels.fuel           AS fuel,
        Cars.consumption     AS consumption,
-       round(TripLog.mileage * Cars.consumption / 100 * Fuels.price,
+       ROUND(TripLog.mileage * Cars.consumption / 100 * Fuels.price,
              0)             AS TripCost
 FROM TripLog
          JOIN Employees

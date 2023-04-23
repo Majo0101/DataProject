@@ -5,7 +5,7 @@ CREATE EVENT UPDATE_YEARS_EVENT
             STARTS '2022-01-01 00:00:00'
     DO
     BEGIN
-        INSERT INTO Years (AdeptusMechanicus_5.Years.year)
+        INSERT INTO Years (Years.year)
         VALUES (YEAR(curdate()));
     END;
 

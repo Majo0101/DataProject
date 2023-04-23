@@ -256,3 +256,4 @@ if __name__ == "__main__":
         data.expenses_log(500, 12, 1)
 
         sql.disconnect()
+

@@ -12,7 +12,7 @@ CREATE TRIGGER UpdateExpenses
     ON ExpensesLog
     FOR EACH ROW
     UPDATE TotalCosts
-    SET OperatingCostSum = (SELECT sum(`Price (€)`) FROM EXPENSES_LOG_CURRENT_YEAR)
+    SET OperatingCostSum = (SELECT SUM(`Price (€)`) FROM EXPENSES_LOG_CURRENT_YEAR)
     WHERE OperatingCostType = 'Expenses';
 
 
@@ -22,7 +22,7 @@ CREATE trigger UpdateTotalFuelCost
     ON TripLog
     FOR EACH ROW
     UPDATE TotalCosts
-    SET OperatingCostSum = (SELECT (sum(tripcost)) FROM TRIP_LOG_CURRENT_YEAR)
+    SET OperatingCostSum = (SELECT (SUM(tripcost)) FROM TRIP_LOG_CURRENT_YEAR)
     WHERE OperatingCostType = 'Fuels';
 
 
